@@ -39,15 +39,19 @@ const styles = StyleSheet.create({
 
 const LogInScreen = ({ navigation }) => {
   const [cedula, setCedula] = useState();
+  const [contrasenia, setContrasenia] = useState();
   const [loading, setLoading] = useState(false);
   const loadingAnimation = useRef(null);
   const insets = useSafeAreaInsets();
   const handleSubmit = () => {
     setLoading(true);
-    const url =
-      "https://proyectofinalprogii.onrender.com/api/usuarios/" + cedula;
-    axios
-      .get(url)
+    const url = "https://proyectofinalprogii.onrender.com/api/usuarios/" + cedula;
+    const config = {
+      method: "get",
+      url,
+      params: { contrasenia },
+    };
+    axios(config)
       .then((response) => {
         setLoading(false);
         const data = response.data;
@@ -56,7 +60,7 @@ const LogInScreen = ({ navigation }) => {
       })
       .catch(() => {
         setLoading(false);
-        Alert.alert("Error", "Esta cedula no esta registrada en el sistema.");
+        Alert.alert("Error", "Cedula o contraseña incorrecta");
       });
   };
   useEffect(() => {
@@ -82,6 +86,12 @@ const LogInScreen = ({ navigation }) => {
         keyboardType="numeric"
         value={cedula}
         onChangeText={setCedula}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Contraseña"
+        value={contrasenia}
+        onChangeText={setContrasenia}
         style={styles.input}
       />
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
