@@ -1,4 +1,5 @@
-import { TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import Color from "color";
 
 const styles = StyleSheet.create({
   card: {
@@ -18,13 +19,17 @@ const styles = StyleSheet.create({
 });
 
 const CardButton = ({
-  card: { image, title, description, color },
+  card: { title, description, color: mainColor, SVG },
   onPress,
 }) => {
+  const darkenColor = Color(mainColor).darken(0.5).toString();
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.card, {backgroundColor: color}]}>
-      <Image source={image} style={{ height: 90, width: 90 }} />
-      <Text style={styles.title}>{title}</Text>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.card, { backgroundColor: mainColor }]}
+    >
+      <SVG width={90} height={90} fill={darkenColor} />
+      <Text style={[styles.title]}>{title}</Text>
       <Text>{description}</Text>
     </TouchableOpacity>
   );

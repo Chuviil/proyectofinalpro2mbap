@@ -90,6 +90,7 @@ const LogInScreen = ({ navigation }) => {
       />
       <TextInput
         placeholder="Contraseña"
+        autoCapitalize="characters"
         value={contrasenia}
         onChangeText={setContrasenia}
         style={styles.input}
