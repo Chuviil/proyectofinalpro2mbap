@@ -6,19 +6,19 @@ import CardButton from "../components/CardButton";
 
 const cards = {
   vote: {
-    image: require("../assets/icon.png"),
+    image: require("../assets/votebtn.png"),
     title: "Votar",
     description: "Realiza tu votacion",
-    color: "#f3eb66"
+    color: "#09936e"
   },
   resultados: {
-    image: require("../assets/icon.png"),
+    image: require("../assets/resultsbtn.png"),
     title: "Resultados",
     description: "Revisa los resultados de las votaciones",
     color: "#f3eb66"
   },
   certificado: {
-    image: require("../assets/icon.png"),
+    image: require("../assets/certificadobtn.png"),
     title: "Certificado",
     description: "Visualiza tu certificado de votacion",
     color: "#f3eb66"
