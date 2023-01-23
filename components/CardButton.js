@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
     height: 180,
+    marginBottom: 25
   },
   title: {
     fontSize: 18,

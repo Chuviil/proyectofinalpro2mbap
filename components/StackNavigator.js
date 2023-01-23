@@ -3,7 +3,9 @@ import FirstTimeScreen from "../screens/FirstTimeScreen";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import LogInScreen from "../screens/LogInScreen";
-import VotingScreen from "../screens/VotingScreen";
+import MainScreen from "../screens/MainScreen";
+import CertificateScreen from "../screens/CertificateScreen";
+import ResultsScreen from "../screens/ResultsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +28,9 @@ export default function StackNavigator() {
         ) : (
             <>
               <Stack.Screen name="LogIn" component={LogInScreen} options={{headerShown: false}}/>
-              <Stack.Screen name="Voting" component={VotingScreen} options={{headerShown: false}}/>
+              <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
+              <Stack.Screen name="Certificate" component={CertificateScreen} options={{title:"Certificado"}}/>
+              <Stack.Screen name="Results" component={ResultsScreen} options={{title:"Resultados"}}/>
             </>
         )}
       </Stack.Navigator>

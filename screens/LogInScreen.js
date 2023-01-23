@@ -55,7 +55,7 @@ const LogInScreen = ({ navigation }) => {
       .then((response) => {
         setLoading(false);
         const data = response.data;
-        navigation.replace("Voting", { data });
+        navigation.replace("Main", { data });
         console.log(data);
       })
       .catch(() => {
