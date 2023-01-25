@@ -41,7 +41,9 @@ const CertificateScreen = ({
             ref={animationRef}
             style={{ width: 350, height: 350 }}
           />
-          <Text>Usted aun no vota</Text>
+          <Text style={{ width: "65%", textAlign: "center", fontSize: 18 }}>
+            Primero realiza tu votacion para visualizar tu certificado
+          </Text>
         </>
       )}
     </View>
