@@ -45,7 +45,7 @@ const LogInScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const handleSubmit = () => {
     setLoading(true);
-    const url = "https://proyectofinalprogii.onrender.com/api/usuarios/" + cedula;
+    const url = "https://proyectofinalprogii.onrender.com/api/personas/" + cedula;
     const config = {
       method: "get",
       url,
