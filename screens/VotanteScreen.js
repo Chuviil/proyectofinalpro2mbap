@@ -2,7 +2,6 @@ import { View, Button, Text, StyleSheet, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
 import Votante from "../classes/Votante.class";
-import Candidato from "../classes/Candidato.class";
 import CardButton from "../components/CardButton";
 import axios from "axios";
 
@@ -67,7 +66,7 @@ const VotanteScreen = ({ route, navigation }) => {
   );
   usuario.establecerVoto(voto);
   const handlePress = () => {
-    navigation.navigate("VotingScreen")
+    navigation.navigate("VotingScreen", {usuario})
   };
   const handleCertificatePress = () => {
     navigation.navigate("Certificate", { usuario });
@@ -83,7 +82,7 @@ const VotanteScreen = ({ route, navigation }) => {
         const data = response.data;
         navigation.navigate("Results", { data });
       })
-      .catch((e) => {});
+      .catch(() => {});
   };
   return (
     <View
