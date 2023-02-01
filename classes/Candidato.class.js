@@ -8,9 +8,7 @@ export default class Candidato extends Persona {
     cedula,
     contrasenia,
     parroquia,
-    genero,
-    dignidad,
-    lista
+    genero
   ) {
     super(
       nombres,
@@ -21,7 +19,15 @@ export default class Candidato extends Persona {
       parroquia,
       genero
     );
+    this.dignidad = null;
+    this.lista = null;
+  }
+
+  establecerDignidad(dignidad) {
     this.dignidad = dignidad;
+  }
+
+  establecerLista(lista) {
     this.lista = lista;
   }
 

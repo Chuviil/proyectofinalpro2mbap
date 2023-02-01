@@ -56,7 +56,11 @@ const LogInScreen = ({ navigation }) => {
       .then((response) => {
         setLoading(false);
         const data = response.data;
-        navigation.replace("Main", { data });
+        if (data.__t === "Votante") {
+          navigation.replace("VotanteScreen", { data });
+        } else {
+          navigation.replace("CandidatoScreen", { data });
+        }
         console.log(data);
       })
       .catch(() => {

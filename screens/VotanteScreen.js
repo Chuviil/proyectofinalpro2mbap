@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import Votante from "../classes/Votante.class";
 import Candidato from "../classes/Candidato.class";
 import CardButton from "../components/CardButton";
+import axios from "axios";
 
 const cards = {
   vote: {
@@ -40,12 +41,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const MainScreen = ({ route, navigation }) => {
+const VotanteScreen = ({ route, navigation }) => {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {
     data: {
-      __t,
       nombres,
       apellidos,
       fechaNacimiento,
@@ -54,41 +54,36 @@ const MainScreen = ({ route, navigation }) => {
       parroquia,
       genero,
       voto,
-      dignidad,
-      lista,
     },
   } = route.params;
-  const usuario =
-    __t === "Votante"
-      ? new Votante(
-          nombres,
-          apellidos,
-          fechaNacimiento,
-          cedula,
-          contrasenia,
-          parroquia,
-          genero,
-          voto
-        )
-      : new Candidato(
-          nombres,
-          apellidos,
-          fechaNacimiento,
-          cedula,
-          contrasenia,
-          parroquia,
-          genero,
-          dignidad,
-          lista
-        );
+  const usuario = new Votante(
+    nombres,
+    apellidos,
+    fechaNacimiento,
+    cedula,
+    contrasenia,
+    parroquia,
+    genero
+  );
+  usuario.establecerVoto(voto);
   const handlePress = () => {
-    console.log("Votar Screen");
+    navigation.navigate("VotingScreen")
   };
   const handleCertificatePress = () => {
     navigation.navigate("Certificate", { usuario });
   };
   const handleResultPress = () => {
-    navigation.navigate("Results", { usuario });
+    const url = "https://proyectofinalprogii.onrender.com/api/elecciones/";
+    const config = {
+      method: "GET",
+      url,
+    };
+    axios(config)
+      .then((response) => {
+        const data = response.data;
+        navigation.navigate("Results", { data });
+      })
+      .catch((e) => {});
   };
   return (
     <View
@@ -104,7 +99,10 @@ const MainScreen = ({ route, navigation }) => {
     >
       <ScrollView>
         <Text style={styles.title}>
-          {usuario.obtenerGenero() === "MASCULINO" ? "Bienvenido" : "Bienvenida"},
+          {usuario.obtenerGenero() === "MASCULINO"
+            ? "Bienvenido"
+            : "Bienvenida"}
+          ,
         </Text>
         <Text style={{ fontSize: 14 }}>{usuario.obtenerNombreCompleto()}</Text>
         <View style={styles.btnContainer}>
@@ -126,4 +124,4 @@ const MainScreen = ({ route, navigation }) => {
   );
 };
 
-export default MainScreen;
+export default VotanteScreen;

@@ -24,7 +24,7 @@ const CertificateScreen = ({
   }, [animationRef]);
   return (
     <View style={styles.container}>
-      {usuario.yaVoto() ? (
+      {!usuario.puedeVotar() ? (
         <>
           <HorizontalContainer>
             <Text style={{ fontWeight: "bold", marginRight: 5 }}>

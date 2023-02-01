@@ -8,8 +8,7 @@ export default class Votante extends Persona {
     cedula,
     contrasenia,
     parroquia,
-    genero,
-    voto
+    genero
   ) {
     super(
       nombres,
@@ -20,10 +19,14 @@ export default class Votante extends Persona {
       parroquia,
       genero
     );
-    this.voto = voto;
+    this.voto = false;
   }
 
   puedeVotar() {
     return !this.voto;
+  }
+
+  establecerVoto(voto) {
+    this.voto = voto;
   }
 }

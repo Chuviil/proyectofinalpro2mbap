@@ -93,6 +93,7 @@ const RegisterScreen = ({ navigation }) => {
     axios(config)
       .then(() => {
         setLoading(false);
+        Alert.alert("Exito", "Registro exitoso ahora puede iniciar sesion");
         navigation.goBack();
       })
       .catch(() => {
@@ -192,7 +193,10 @@ const RegisterScreen = ({ navigation }) => {
         >
           <Picker.Item label="Nanegal" value="NANEGAL" />
           <Picker.Item label="Pacto" value="PACTO" />
-          <Picker.Item label="Gualea y Nanegalito" value="GUALEA_Y_NANEGALITO" />
+          <Picker.Item
+            label="Gualea y Nanegalito"
+            value="GUALEA_Y_NANEGALITO"
+          />
           <Picker.Item label="El Condado" value="EL_CONDADO" />
           <Picker.Item label="Ponceano" value="PONCEANO" />
           <Picker.Item
@@ -250,12 +254,14 @@ const RegisterScreen = ({ navigation }) => {
           <Picker.Item label="Chillogallo" value="CHILLOGALLO" />
           <Picker.Item label="Guamani" value="GUAMANI" />
           <Picker.Item label="Quitumbe" value="QUITUMBE" />
-          <Picker.Item label="Turubamba" value="TURUBAMBA" />
-          <Picker.Item label="La Ecuatoriana" value="LA_ECUATORIANA" />
+          <Picker.Item
+            label="Turubamba y la Ecuatoriana"
+            value="TURUBAMBA_Y_LA_ECUATORIANA"
+          />
           <Picker.Item label="Conocoto" value="CONOCOTO" />
           <Picker.Item label="Pintag" value="PINTAG" />
           <Picker.Item label="Amaguania" value="AMAGUANIA" />
-          <Picker.Item label="Alangasi" value="ALANGASI" />
+          <Picker.Item label="Alangasi" value="ALANGASÍ" />
           <Picker.Item
             label="Guangopolo y la Merced"
             value="GUANGOPOLO_Y_LA_MERCED"
