@@ -1,7 +1,8 @@
 import { View, Button, Text, StyleSheet, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
-import Usuario from "../classes/Usuario.class";
+import Votante from "../classes/Votante.class";
+import Candidato from "../classes/Candidato.class";
 import CardButton from "../components/CardButton";
 
 const cards = {
@@ -34,9 +35,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
   },
-  btnContainer:{
+  btnContainer: {
     marginTop: 25,
-  }
+  },
 });
 
 const MainScreen = ({ route, navigation }) => {
@@ -44,35 +45,51 @@ const MainScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const {
     data: {
+      __t,
       nombres,
       apellidos,
-      cedula,
-      candidato,
       fechaNacimiento,
+      cedula,
+      contrasenia,
+      parroquia,
       genero,
       voto,
-      contrasenia,
+      dignidad,
+      lista,
     },
   } = route.params;
-  const usuario = new Usuario(
-    nombres,
-    apellidos,
-    cedula,
-    candidato,
-    fechaNacimiento,
-    genero,
-    voto,
-    contrasenia
-  );
+  const usuario =
+    __t === "Votante"
+      ? new Votante(
+          nombres,
+          apellidos,
+          fechaNacimiento,
+          cedula,
+          contrasenia,
+          parroquia,
+          genero,
+          voto
+        )
+      : new Candidato(
+          nombres,
+          apellidos,
+          fechaNacimiento,
+          cedula,
+          contrasenia,
+          parroquia,
+          genero,
+          dignidad,
+          lista
+        );
   const handlePress = () => {
     console.log("Votar Screen");
   };
   const handleCertificatePress = () => {
-    navigation.navigate("Certificate", {usuario})
-  }
+    navigation.navigate("Certificate", { usuario });
+  };
   const handleResultPress = () => {
-    navigation.navigate("Results", {usuario})
-  }
+    navigation.navigate("Results", { usuario });
+  };
   return (
     <View
       style={[
@@ -87,13 +104,16 @@ const MainScreen = ({ route, navigation }) => {
     >
       <ScrollView>
         <Text style={styles.title}>
-          {usuario.genero ? "Bienvenido" : "Bienvenida"},
+          {usuario.obtenerGenero() === "MASCULINO" ? "Bienvenido" : "Bienvenida"},
         </Text>
         <Text style={{ fontSize: 14 }}>{usuario.obtenerNombreCompleto()}</Text>
         <View style={styles.btnContainer}>
           <CardButton card={cards.vote} onPress={handlePress} />
           <CardButton card={cards.resultados} onPress={handleResultPress} />
-          <CardButton card={cards.certificado} onPress={handleCertificatePress} />
+          <CardButton
+            card={cards.certificado}
+            onPress={handleCertificatePress}
+          />
         </View>
       </ScrollView>
       <Button

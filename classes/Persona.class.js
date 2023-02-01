@@ -1,8 +1,19 @@
 export default class Persona {
-  constructor(nombres, apellidos, fechaNacimiento, genero) {
+  constructor(
+    nombres,
+    apellidos,
+    fechaNacimiento,
+    cedula,
+    contrasenia,
+    parroquia,
+    genero
+  ) {
     this.nombres = nombres;
     this.apellidos = apellidos;
     this.fechaNacimiento = fechaNacimiento;
+    this.cedula = cedula;
+    this.contrasenia = contrasenia;
+    this.parroquia = parroquia;
     this.genero = genero;
   }
 
@@ -20,6 +31,14 @@ export default class Persona {
 
   obtenerFechaNacimiento() {
     return this.fechaNacimiento;
+  }
+
+  obtenerCedula() {
+    return this.cedula;
+  }
+
+  obtenerParroquia() {
+    return this.parroquia;
   }
 
   obtenerGenero() {

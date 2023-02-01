@@ -6,6 +6,7 @@ import LogInScreen from "../screens/LogInScreen";
 import MainScreen from "../screens/MainScreen";
 import CertificateScreen from "../screens/CertificateScreen";
 import ResultsScreen from "../screens/ResultsScreen";
+import RegisterScreen from "../screens/RegisterScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ export default function StackNavigator() {
         ) : (
             <>
               <Stack.Screen name="LogIn" component={LogInScreen} options={{headerShown: false}}/>
+              <Stack.Screen name="Register" component={RegisterScreen} options={{title: "Registrarse"}}/>
               <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
               <Stack.Screen name="Certificate" component={CertificateScreen} options={{title:"Certificado"}}/>
               <Stack.Screen name="Results" component={ResultsScreen} options={{title:"Resultados"}}/>

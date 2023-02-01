@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import VerticalContainer from "../components/VerticalContainer";
 import HorizontalContainer from "../components/HorizontalContainer";
 
-const fechaTest = new Date("2023-01-29T23:59:00-05:00").getTime();
+const fechaTest = new Date("2023-02-01T09:10:00-05:00").getTime();
 
 const second = 1000;
 const minute = second * 60;

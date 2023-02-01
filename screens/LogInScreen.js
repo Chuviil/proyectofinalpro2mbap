@@ -45,7 +45,8 @@ const LogInScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const handleSubmit = () => {
     setLoading(true);
-    const url = "https://proyectofinalprogii.onrender.com/api/personas/" + cedula;
+    const url =
+      "https://proyectofinalprogii.onrender.com/api/personas/" + cedula;
     const config = {
       method: "get",
       url,
@@ -90,13 +91,19 @@ const LogInScreen = ({ navigation }) => {
       />
       <TextInput
         placeholder="Contraseña"
-        autoCapitalize="characters"
         value={contrasenia}
         onChangeText={setContrasenia}
         style={styles.input}
       />
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Ingresar</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Register");
+        }}
+      >
+        <Text>Registrarse</Text>
       </TouchableOpacity>
     </View>
   );

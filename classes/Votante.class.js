@@ -1,6 +1,6 @@
 import Persona from "./Persona.class";
 
-export default class Candidato extends Persona {
+export default class Votante extends Persona {
   constructor(
     nombres,
     apellidos,
@@ -9,8 +9,7 @@ export default class Candidato extends Persona {
     contrasenia,
     parroquia,
     genero,
-    dignidad,
-    lista
+    voto
   ) {
     super(
       nombres,
@@ -21,15 +20,10 @@ export default class Candidato extends Persona {
       parroquia,
       genero
     );
-    this.dignidad = dignidad;
-    this.lista = lista;
+    this.voto = voto;
   }
 
-  obtenerTipoDignidad() {
-    return this.dignidad;
-  }
-
-  obtenerLista() {
-    return this.lista;
+  puedeVotar() {
+    return !this.voto;
   }
 }
