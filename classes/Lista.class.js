@@ -26,6 +26,10 @@ export default class Lista {
     return this.candidatoPrefecto;
   }
 
+  esValida() {
+    return this.candidatoAlcalde!== null && this.candidatoPrefecto!== null && this.candidatosConcejal >= 6;
+  }
+
   obtenerCandidatosConcejal() {
     return this.candidatosConcejal;
   }
@@ -40,6 +44,18 @@ export default class Lista {
 
   establecerCandidatoPrefecto(candidato) {
     this.candidatoPrefecto = candidato;
+  }
+
+  puedeInscribirseAlcalde() {
+    return this.candidatoAlcalde === null;
+  }
+
+  puedeInscribirsePrefecto() {
+    return this.candidatoPrefecto === null;
+  }
+
+  puedeInscribirseConcejal() {
+    return this.candidatosConcejal.length < 7;
   }
 
   incrementarVotosAlcalde() {

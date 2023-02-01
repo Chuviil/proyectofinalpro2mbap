@@ -9,6 +9,7 @@ import ResultsScreen from "../screens/ResultsScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import CandidatoScreen from "../screens/CandidatoScreen";
 import VotingScreen from "../screens/VotingScreen";
+import InscribirseScreen from "../screens/InscribirseScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,7 @@ export default function StackNavigator() {
               <Stack.Screen name="Certificate" component={CertificateScreen} options={{title:"Certificado"}}/>
               <Stack.Screen name="Results" component={ResultsScreen} options={{title:"Resultados"}}/>
               <Stack.Screen name="CandidatoScreen" component={CandidatoScreen} options={{headerShown: false}}/>
+              <Stack.Screen name="InscribirseScreen" component={InscribirseScreen} options={{title: "Inscribirse"}}/>
             </>
         )}
       </Stack.Navigator>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import VerticalContainer from "../components/VerticalContainer";
 import HorizontalContainer from "../components/HorizontalContainer";
 import Eleccion from "../classes/Eleccion.class";
+import VotoElectronico from "../classes/VotoElectronico.class";
 
 const second = 1000;
 const minute = second * 60;
@@ -20,12 +21,27 @@ const ResultsScreen = ({ route }) => {
   const {
     data: { fechaInicio, fechaFin, votosElectronicos },
   } = route.params;
-  const eleccion = new Eleccion();
-  eleccion.establecerFechaInicio(new Date(fechaInicio));
-  eleccion.establecerFechaFin(new Date(fechaFin));
-  votosElectronicos.forEach((votoElectronico) => {/*TODO crear clase votoElectronico y añadir f*/})
-  const [timeGap, setTimeGap] = useState(eleccion.obtenerFechaFin().getTime() - new Date().getTime());
+  const [eleccion, setEleccion] = useState(new Eleccion());
+  const [timeGap, setTimeGap] = useState(
+    eleccion.obtenerFechaFin()?.getTime() - new Date().getTime()
+  );
   useEffect(() => {
+    if (eleccion.obtenerFechaFin() === null) {
+      eleccion.establecerFechaInicio(new Date(fechaInicio));
+      eleccion.establecerFechaFin(new Date(fechaFin));
+      votosElectronicos.forEach((votoElectronico) => {
+        console.log(votoElectronico)
+        const {candidatoAlcalde, candidatoPrefecto, fechaVotacion, listaConsejales, parroquia} = votoElectronico
+        const vototemp = new VotoElectronico(
+          candidatoAlcalde,
+          candidatoPrefecto,
+          listaConsejales,
+          fechaVotacion,
+          parroquia
+        );
+        eleccion.agregarVotoElectronico(vototemp);
+      });
+    }
     if (timeGap > 0) {
       let intervalId = setInterval(() => {
         const hoy = new Date().getTime();
@@ -33,6 +49,7 @@ const ResultsScreen = ({ route }) => {
       }, 1000);
       return () => clearInterval(intervalId);
     }
+
     console.log("timer hit 0");
   }, [timeGap]);
   return (

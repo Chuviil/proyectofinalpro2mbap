@@ -47,4 +47,12 @@ export default class Eleccion {
   obtenerVotosBlancos() {
     return this.votosElectronicos.filter((voto) => voto.esBlanco());
   }
+
+  calcularResultados() {
+    this.votosElectronicos.forEach((votoElectronico) => {
+      if (votoElectronico.esValido()){
+
+      }
+    })
+  }
 }

@@ -68,7 +68,7 @@ const CandidatoScreen = ({ route, navigation }) => {
   usuario.establecerDignidad(dignidad);
   usuario.establecerLista(lista);
   const handlePress = () => {
-    console.log("Votar Screen");
+    navigation.navigate("InscribirseScreen", { usuario });
   };
   const handleCertificatePress = () => {
     navigation.navigate("Certificate", { usuario });

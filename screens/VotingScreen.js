@@ -4,12 +4,24 @@ import { useEffect, useRef, useState } from "react";
 import LottieView from "lottie-react-native";
 import axios from "axios";
 import Lista from "../classes/Lista.class";
+import Eleccion from "../classes/Eleccion.class";
+import HorizontalContainer from "../components/HorizontalContainer";
+import VerticalContainer from "../components/VerticalContainer";
+
+const second = 1000;
+const minute = second * 60;
+const hour = minute * 60;
+const day = hour * 24;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  numbers: {
+    fontWeight: "bold",
+    fontSize: 20,
   },
 });
 
@@ -19,6 +31,8 @@ const VotingScreen = ({
     params: { usuario },
   },
 }) => {
+  const [eleccion, setEleccion] = useState(new Eleccion());
+  const [timeGap, setTimeGap] = useState(null);
   const [loading, setLoading] = useState(true);
   const [listas, setListas] = useState(null);
   const [alcaldeSeleccionado, setAlcaldeSeleccionado] = useState(null);
@@ -32,35 +46,62 @@ const VotingScreen = ({
     if (loading) {
       loadingAnimation.current?.play();
       if (listas === null) {
-        const url = "https://proyectofinalprogii.onrender.com/api/listas";
-        const config = {
+        let url = "https://proyectofinalprogii.onrender.com/api/listas";
+        let config = {
           method: "GET",
           url,
         };
-        axios(config).then((response) => {
-          const listasData = response.data;
-          const listasObj = listasData.map((lista) => {
-            const {
-              nombrePartido,
-              numero,
-              candidatoAlcalde,
-              candidatoPrefecto,
-              candidatosConsejal,
-            } = lista;
-            const listaObj = new Lista(nombrePartido, numero);
-            listaObj.establecerCandidatoAlcalde(candidatoAlcalde);
-            listaObj.establecerCandidatoPrefecto(candidatoPrefecto);
-            candidatosConsejal.forEach((concejal) => {
-              listaObj.agregarConcejal(concejal);
+        axios(config)
+          .then((response) => {
+            const listasData = response.data;
+            const listasObj = listasData.map((lista) => {
+              const {
+                nombrePartido,
+                numero,
+                candidatoAlcalde,
+                candidatoPrefecto,
+                candidatosConsejal,
+              } = lista;
+              const listaObj = new Lista(nombrePartido, numero);
+              listaObj.establecerCandidatoAlcalde(candidatoAlcalde);
+              listaObj.establecerCandidatoPrefecto(candidatoPrefecto);
+              candidatosConsejal.forEach((concejal) => {
+                listaObj.agregarConcejal(concejal);
+              });
+              return listaObj;
             });
-            return listaObj;
+            setListas(listasObj);
+            console.log()
+          })
+          .catch((e) => {
+            console.log(e);
           });
-          setListas(listasObj);
-          setLoading(false);
-        });
+
+        url = "https://proyectofinalprogii.onrender.com/api/elecciones/";
+        config = {
+          method: "GET",
+          url,
+        };
+        axios(config)
+          .then((response) => {
+            const { fechaInicio } = response.data;
+            eleccion.establecerFechaInicio(new Date(fechaInicio));
+            console.log(eleccion);
+            setTimeGap(eleccion.obtenerFechaInicio().getTime() - new Date().getTime())
+          })
+          .catch(() => {});
+        setLoading(false);
       }
     }
-  }, [loading]);
+    if (timeGap > 0 && timeGap !== null) {
+      console.log(`Time Gap: ${timeGap}`);
+      let intervalId = setInterval(() => {
+        const hoy = new Date().getTime();
+        setTimeGap(eleccion.obtenerFechaInicio().getTime() - hoy);
+      }, 1000);
+      return () => clearInterval(intervalId);
+    }
+  }, [loading, timeGap]);
 
   const handleSiguienteBtn = () => {
     if (papeletaAMostrar >= 3) return;
@@ -118,6 +159,7 @@ const VotingScreen = ({
         <LottieView
           autoPlay
           autoSize
+          ref={loadingAnimation}
           source={require("../assets/mbloading.json")}
         />
       </View>
@@ -133,12 +175,47 @@ const VotingScreen = ({
           source={require("../assets/mbvote.json")}
           // TODO Modificar animacion a ya voto
         />
-        <Text style={{width: "65%", textAlign: "center"}}>
+        <Text style={{ width: "65%", textAlign: "center" }}>
           Ya realizaste tu votacion ahora dirigete a certificado o resultados
         </Text>
       </View>
     );
   }
+
+  if (timeGap > 0 && timeGap!== null) {
+    return (
+        <View style={styles.container}>
+          <Text style={{ marginBottom: 25, width: "75%", textAlign: "center" }}>
+            Podras realizar tu votacion dentro de:
+          </Text>
+          <HorizontalContainer>
+            <VerticalContainer>
+              <Text style={styles.numbers}>{Math.floor(timeGap / day)}</Text>
+              <Text>Dias</Text>
+            </VerticalContainer>
+            <VerticalContainer>
+              <Text style={styles.numbers}>
+                {Math.floor((timeGap % day) / hour)}
+              </Text>
+              <Text>Horas</Text>
+            </VerticalContainer>
+            <VerticalContainer>
+              <Text style={styles.numbers}>
+                {Math.floor((timeGap % hour) / minute)}
+              </Text>
+              <Text>Minutos</Text>
+            </VerticalContainer>
+            <VerticalContainer>
+              <Text style={styles.numbers}>
+                {Math.floor((timeGap % minute) / second)}
+              </Text>
+              <Text>Segundos</Text>
+            </VerticalContainer>
+          </HorizontalContainer>
+        </View>
+    )
+  }
+
   return (
     <View style={{ flex: 1 }}>
       {papeletaAMostrar === 1 &&
@@ -167,7 +244,7 @@ const VotingScreen = ({
               onPress={() => {
                 setPrefectoSeleccionado(lista.obtenerNumero());
               }}
-              dignidad={lista.obtenerCandidatoAlcalde()}
+              dignidad={lista.obtenerCandidatoPrefecto()}
             />
           );
         })}

@@ -12,4 +12,33 @@ export default class VotoElectronico {
     this.fechaVotacion = fechaVotacion;
     this.parroquia = parroquia;
   }
+
+  esValido() {
+    return (
+      this.candidatoAlcalde !== null &&
+      this.candidatoPrefecto !== null &&
+      this.listaConsejales !== null
+    );
+  }
+
+  esBlanco() {
+    return (
+      this.candidatoAlcalde === null ||
+      this.candidatoPrefecto === null ||
+      this.listaConsejales === null
+    );
+  }
+
+  obtenerCandidatoAlcalde() {
+    return this.candidatoAlcalde;
+  }
+
+  obtenerCandidatoPrefecto() {
+    return this.candidatoPrefecto;
+  }
+
+  obtenerListaConsejales() {
+    return this.listaConsejales;
+  }
+
 }
