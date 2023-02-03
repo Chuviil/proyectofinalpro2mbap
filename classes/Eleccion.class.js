@@ -2,11 +2,12 @@ export default class Eleccion {
   constructor() {
     this.fechaInicio = null;
     this.fechaFin = null;
-    this.votosElectronicos = [];
     this.alcaldeGanador = null;
     this.prefectoGanador = null;
     this.listaConsejalesGanadora = null;
   }
+
+  static votosElectronicos = [];
 
   establecerFechaInicio(fechaInicio) {
     this.fechaInicio = fechaInicio;
@@ -16,7 +17,7 @@ export default class Eleccion {
     this.fechaFin = fechaFin;
   }
 
-  agregarVotoElectronico(votoElectronico) {
+  static agregarVotoElectronico(votoElectronico) {
     this.votosElectronicos.push(votoElectronico);
   }
 

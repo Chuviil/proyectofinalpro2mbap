@@ -113,12 +113,12 @@ const VotanteScreen = ({ route, navigation }) => {
           />
         </View>
       </ScrollView>
-      <Button
-        title={"UNSEEN"}
-        onPress={() => {
-          dispatch({ type: "UNSEEN" });
-        }}
-      />
+      {/*<Button*/}
+      {/*  title={"UNSEEN"}*/}
+      {/*  onPress={() => {*/}
+      {/*    dispatch({ type: "UNSEEN" });*/}
+      {/*  }}*/}
+      {/*/>*/}
     </View>
   );
 };

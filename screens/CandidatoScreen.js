@@ -71,10 +71,10 @@ const CandidatoScreen = ({ route, navigation }) => {
     navigation.navigate("InscribirseScreen", { usuario });
   };
   const handleCertificatePress = () => {
-    navigation.navigate("Certificate", { usuario });
+    // navigation.navigate("Certificate", { usuario });
   };
   const handleResultPress = () => {
-    navigation.navigate("Results", { usuario });
+    // navigation.navigate("Results", { usuario });
   };
   return (
     <View
@@ -105,12 +105,12 @@ const CandidatoScreen = ({ route, navigation }) => {
           />
         </View>
       </ScrollView>
-      <Button
-        title={"UNSEEN"}
-        onPress={() => {
-          dispatch({ type: "UNSEEN" });
-        }}
-      />
+      {/*<Button*/}
+      {/*  title={"UNSEEN"}*/}
+      {/*  onPress={() => {*/}
+      {/*    dispatch({ type: "UNSEEN" });*/}
+      {/*  }}*/}
+      {/*/>*/}
     </View>
   );
 };
